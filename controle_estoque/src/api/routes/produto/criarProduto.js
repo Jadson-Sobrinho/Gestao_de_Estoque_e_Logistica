@@ -1,4 +1,5 @@
 const pool = require('../../../config/connection');
+const { validarProdutoCriacao, validarProdutoAtualizacao } = require('../../validators/produtoValidator');
 
 module.exports = async function(req, res){
     const novo_produto = {
@@ -13,6 +14,10 @@ module.exports = async function(req, res){
         
 
     };
+
+    const {error} = validarProdutoCriacao(req.body);
+
+    if(error){ return res.status(400).json({erros: error.details})};
     
     let conn;
     try{

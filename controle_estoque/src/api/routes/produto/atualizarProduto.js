@@ -1,23 +1,30 @@
 const pool = require('../../../config/connection');
+const { validarProdutoCriacao, validarProdutoAtualizacao } = require('../../validators/produtoValidator');
 
 
 module.exports = async function(req, res){
+    
+    const atualizar_produto = {
+
+        produto_id: req.body.produto_id,
+        nome_produto: req.body.nome_produto,
+        descricao: req.body.descricao,
+        nome_marca: req.body.nome_marca,
+        nome_categoria: req.body.nome_categoria,
+        preco_custo: req.body.preco_custo,
+        preco_venda: req.body.preco_venda,
+        quantidade: req.body.quantidade,
+        codigo_barra: req.body.codigo_barra
+        
+
+    };
+
+    const {error} = validarProdutoAtualizacao(req.body);
+
+    if (error){ return res.status(400).json({erros: error.details})};
+    
     let conn;
     try{
-        const atualizar_produto = {
-
-            produto_id: req.body.produto_id,
-            nome_produto: req.body.nome_produto,
-            nome_marca: req.body.nome_marca,
-            nome_categoria: req.body.nome_categoria,
-            preco_custo: req.body.preco_custo,
-            preco_venda: req.body.preco_venda,
-            quantidade: req.body.quantidade,
-            codigo_barra: req.body.codigo_barra,
-            descricao: req.body.descricao
-
-        };
-
         conn = await pool.getConnection();
 
         const result = await conn.query('CALL Update_produto_info(?, ?, ?, ?, ?, ?, ?, ?, ?);',

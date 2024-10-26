@@ -69,6 +69,7 @@ START TRANSACTION;
 
 UPDATE tb_produto
 SET
+nome_produto = p_nome_produto,
 marca_id = v_marca_id,
 categoria_id = v_categoria_id,
 preco_custo = p_preco_custo,

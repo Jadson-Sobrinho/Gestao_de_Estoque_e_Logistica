@@ -1,7 +1,10 @@
 const pool = require('../../../config/connection');
+const {validarFornecedor} = require('../../validators/fornecedorValidator');
 
 module.exports = async function(req, res){
-    const novo_fornecedor = {
+
+    const fornecedor_info = {
+        
         razao_social: req.body.razao_social,
         CNPJ: req.body.CNPJ,
 
@@ -19,6 +22,9 @@ module.exports = async function(req, res){
         nome_marca: req.body.nome_marca
     };
 
+    const {error} = validarFornecedor(req.body);
+
+    if(error) {return res.status(400).json({erros: error.details})};
 
 let conn;
 try{
@@ -26,16 +32,16 @@ try{
 
     const result = await conn.query("CALL cadastrar_fornecedor (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);",
         [
-            novo_fornecedor.razao_social,
-            novo_fornecedor.CNPJ, 
-            novo_fornecedor.cep, 
-            novo_fornecedor.uf, 
-            novo_fornecedor.cidade, 
-            novo_fornecedor.bairro, 
-            novo_fornecedor.numero, 
-            novo_fornecedor.telefone, 
-            novo_fornecedor.email, 
-            novo_fornecedor.nome_marca
+            fornecedor_info.razao_social,
+            fornecedor_info.CNPJ, 
+            fornecedor_info.cep, 
+            fornecedor_info.uf, 
+            fornecedor_info.cidade, 
+            fornecedor_info.bairro, 
+            fornecedor_info.numero, 
+            fornecedor_info.telefone, 
+            fornecedor_info.email, 
+            fornecedor_info.nome_marca
         ]
 
     );
