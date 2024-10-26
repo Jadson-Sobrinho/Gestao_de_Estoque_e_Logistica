@@ -1,6 +1,14 @@
 const pool = require('../../../config/connection');
 
 module.exports = async function(req, res){
+    const cnpj = String(req.body.CNPJ);
+    
+    const validator = (value) => value === undefined || value === null || value === '' || isNaN(Number(value));
+
+    if(validator(cnpj)){
+        return res.status(400).json({Erro: 'Insira um dado valido'});
+    }
+    
     let conn;
     try{
         const obj = {
@@ -11,8 +19,6 @@ module.exports = async function(req, res){
             typeof value === 'bigint' ? value.toString(): value
         
         );
-
-        const cnpj = String(req.body.CNPJ);
 
         conn = await pool.getConnection();
 
