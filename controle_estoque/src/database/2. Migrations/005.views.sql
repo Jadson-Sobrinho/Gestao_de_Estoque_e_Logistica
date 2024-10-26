@@ -49,4 +49,28 @@ ON P.categoria_id = C.categoria_id
 ORDER BY P.nome_produto ASC;
 
 
+/*Listar todos os produtos de uma marca específica*/
+CREATE VIEW IF NOT EXISTS vw_marca_quantidade_produtos AS SELECT
+M.nome_marca, 
+p.nome_produto, 
+p.preco_custo, 
+p.preco_venda, 
+p.quantidade, 
+p.codigo_barra
+FROM tb_produto p
+INNER JOIN tb_marca m ON p.marca_id = m.marca_id;
+
+
+
+
+/*Consultar produtos em uma determinada categoria*/
+CREATE VIEW IF NOT EXISTS vw_categoria_produtos AS SELECT 
+C.nome_categoria, 
+p.nome_produto, 
+p.preco_custo, 
+p.preco_venda, 
+p.quantidade, 
+p.codigo_barra
+FROM tb_produto p
+INNER JOIN tb_categoria c ON p.categoria_id = c.categoria_id;
 
