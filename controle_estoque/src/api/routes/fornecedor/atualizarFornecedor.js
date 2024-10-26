@@ -1,5 +1,5 @@
 const e = require('express');
-const pool = require('../../database/connection');
+const pool = require('../../../config/connection');
 
 
 module.exports = async function(req, res){
