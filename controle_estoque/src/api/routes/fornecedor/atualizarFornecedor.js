@@ -1,29 +1,34 @@
-const e = require('express');
 const pool = require('../../../config/connection');
+const { validarFornecedor } = require('../../validators/fornecedorValidator');
 
 
 module.exports = async function(req, res){
+    
+    const atualizar_fornecedor = {
+
+        razao_social: req.body.razao_social,
+        CNPJ: req.body.CNPJ,
+
+        cep: req.body.cep, 
+        uf: req.body.uf, 
+        cidade: req.body.cidade, 
+        bairro: req.body.bairro, 
+
+        numero: req.body.numero, 
+
+        telefone: req.body.telefone, 
+
+        email: req.body.email, 
+
+        nome_marca: req.body.nome_marca
+    };
+    
+    const {error} = validarFornecedor(req.body);
+
+    if(error) {return res.status(400).json({erros: error.details})};
+
     let conn;
     try{
-        const atualizar_fornecedor = {
-
-            razao_social: req.body.razao_social,
-            CNPJ: req.body.CNPJ,
-    
-            cep: req.body.cep, 
-            uf: req.body.uf, 
-            cidade: req.body.cidade, 
-            bairro: req.body.bairro, 
-    
-            numero: req.body.numero, 
-    
-            telefone: req.body.telefone, 
-    
-            email: req.body.email, 
-    
-            nome_marca: req.body.nome_marca
-        };
-
         conn = await pool.getConnection();
 
         const result = await conn.query('CALL Update_fornecedor_info(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);',
