@@ -46,4 +46,4 @@ DB_PORT=3006
 Cada módulo tem funções específicas:
 
 * API: Possui endpoints REST para permitir operações como criação, leitura, atualização e exclusão de itens.
-*Configuração de Banco de Dados: O projeto se conecta ao banco através de um arquivo de configuração localizado na pasta config, utilizando as credenciais do .env.
+* Configuração de Banco de Dados: O projeto se conecta ao banco através de um arquivo de configuração localizado na pasta config, utilizando as credenciais do .env.
