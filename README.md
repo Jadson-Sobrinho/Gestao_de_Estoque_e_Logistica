@@ -15,7 +15,7 @@ Para executar este projeto, você precisará de:
    
 ### **Passo 1: Clonar o repositório**
 ```bash
-git clone <URL_do_repositorio>
+git clone https://github.com/Jadson-Sobrinho/Gestao_de_Estoque_e_Logistica.git
 cd controle_estoque
 ```
 
