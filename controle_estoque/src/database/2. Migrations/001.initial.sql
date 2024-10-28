@@ -11,7 +11,8 @@ uf CHAR(2) NOT NULL,
 cidade VARCHAR(35) NOT NULL,
 bairro VARCHAR(35),
 
-PRIMARY KEY (endereco_id)
+PRIMARY KEY (endereco_id),
+INDEX idx_cep (cep)
 
 );
 
@@ -36,7 +37,7 @@ INDEX idx_CNPJ (CNPJ)
 CREATE TABLE IF NOT EXISTS tb_telefone_fornecedor(
 telefone_id INT AUTO_INCREMENT,
 fornecedor_id INT NOT NULL,
-telefone CHAR(11),
+telefone CHAR(11) UNIQUE,
 
 PRIMARY KEY (telefone_id, fornecedor_id),
 FOREIGN KEY (fornecedor_id) REFERENCES tb_fornecedor(fornecedor_id) 
@@ -53,7 +54,7 @@ Indices: email - Por ser um atributo único e de relevancia na busca de infomaç
 CREATE TABLE IF NOT EXISTS tb_email_fornecedor(
 email_id INT AUTO_INCREMENT,
 fornecedor_id INT NOT NULL,
-email VARCHAR(50),
+email VARCHAR(50) UNIQUE,
 
 PRIMARY KEY (email_id, fornecedor_id),
 FOREIGN KEY (fornecedor_id) REFERENCES tb_fornecedor(fornecedor_id)
@@ -114,9 +115,8 @@ produto_id INT AUTO_INCREMENT,
 marca_id INT NOT NULL,
 categoria_id INT NOT NULL,
 nome_produto VARCHAR(50) NOT NULL,
-preco_custo DECIMAL(10,2) NOT NULL,
-preco_venda DECIMAL(10,2) NOT NULL,
-quantidade INT NOT NULL,
+preco_custo DECIMAL(10,2) NOT NULL CHECK (preco_custo > 0),
+preco_venda DECIMAL(10,2) NOT NULL CHECK (preco_venda > 0),
 codigo_barra CHAR(13) NOT NULL UNIQUE,
 descricao TEXT NULL,
 
@@ -127,14 +127,65 @@ INDEX idx_nome(nome_produto)
 
 );
 
+CREATE TABLE IF NOT EXISTS tb_lote (
+lote_id INT AUTO_INCREMENT,
+produto_id INT NOT NULL,
+numero_lote VARCHAR(20) NOT NULL,
+data_fabricacao DATE NOT NULL,
+data_validade DATE NOT NULL,
+quantidade INT NOT NULL CHECK (quantidade >= 0),
+created_at DATETIME DEFAULT CURRENT_TIMESTAMP(),
+
+PRIMARY KEY (lote_id),
+FOREIGN KEY (produto_id) REFERENCES tb_produto(produto_id) 
+	ON UPDATE CASCADE 
+   ON DELETE CASCADE,
+   UNIQUE (numero_lote, produto_id)  -- Garante que o número do lote é único para cada produto
+);
+
+
+CREATE TABLE IF NOT EXISTS tb_estoque (
+estoque_id INT AUTO_INCREMENT,
+lote_id INT NOT NULL,
+quantidade INT NOT NULL CHECK (quantidade >= 0),
+created_at DATETIME DEFAULT CURRENT_TIMESTAMP(),
+updated_at DATETIME DEFAULT CURRENT_TIMESTAMP() ON UPDATE CURRENT_TIMESTAMP(),
+
+PRIMARY KEY (estoque_id),
+FOREIGN KEY (lote_id) REFERENCES tb_lote (lote_id)
+	ON DELETE CASCADE
+	ON UPDATE CASCADE
+
+);
 
 
 
+CREATE TABLE IF NOT EXISTS tb_movimentacao_estoque (
+movimentacao_id INT AUTO_INCREMENT,
+lote_id INT NOT NULL,
+quantidade INT NOT NULL,
+tipo_movimento ENUM('Entrada', 'Saída') NOT NULL,
+created_at DATETIME DEFAULT CURRENT_TIMESTAMP(),
+
+PRIMARY KEY (movimentacao_id),
+FOREIGN KEY (lote_id) REFERENCES tb_lote (lote_id)
+	ON UPDATE CASCADE
+	ON DELETE CASCADE
+
+);
 
 
-
-
-
+CREATE TABLE IF NOT EXISTS tb_estoque_log (
+    log_id INT AUTO_INCREMENT,
+    produto_id INT NOT NULL,
+    quantidade INT NOT NULL,
+    tipo_alerta ENUM('Limite Mínimo', 'Limite Máximo') NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP(),
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP(),
+    
+    PRIMARY KEY (log_id),
+    FOREIGN KEY (produto_id) REFERENCES tb_produto(produto_id)
+);
 
 
 
