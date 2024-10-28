@@ -34,9 +34,56 @@ DB_PASSWORD=senha
 DB_DATABASE=db_controle_estoque
 DB_PORT=3006
 ```
-
+```
 # **4. Estrutura do Projeto**
-
+|--Contole de estoque
+   |--controle_estoque
+      |--node_modules
+      |--src
+         |--api
+            |--routes
+               |--fornecedor
+                  |--atualizarFornecedor.js
+                  |--buscarFornecedor.js
+                  |--buscarTodosFornecedores.js
+                  |--criarFornecedor.js
+                  |--excluirFornecedor.js
+                  |--index.js
+               |--marca
+                  |--buscarProdutosMarca.js
+                  |--index.js
+               |--produto
+                  |--atualizarProduto.js
+                  |--buscarProduto.js
+                  |--buscarTodosProduto.js
+                  |--criarProduto.js
+                  |--excluirProduto.js
+                  |--index.js
+                  |--listarCategoriaProdutos.js
+            |--validators
+               |--fornecedorValidator.js
+               |--produtoValidator.js
+         |--config
+            |--connection.js
+         |--database
+            |--1.Schemas
+         	   |--Modelo lógico - Controle de estoque.pdf
+            |--2.Migrations
+         	   |--001.initial.sql
+         	   |--002.produto_triggers.sql
+         	   |--003.fornecedor_procedures.sql
+         	   |--004.produto_procedure.sql
+         	   |--005.views.sql
+            |--3.Seeds
+         	   |--seed.sql
+            |--README.txt
+         |--app.js
+      |--env.env
+      |--.gitignore.txt
+      |--package.json
+      |--package-lock.json
+   |--README.txt
+```
 * app.js: Arquivo de inicialização principal da aplicação. Aqui, o servidor é configurado e as rotas principais são registradas.
 * api: Contém os controladores e rotas da API para operações CRUD no estoque.
 * config: Contém as configurações de banco de dados
