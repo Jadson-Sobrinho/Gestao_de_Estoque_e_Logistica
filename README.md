@@ -34,8 +34,9 @@ DB_PASSWORD=senha
 DB_DATABASE=db_controle_estoque
 DB_PORT=3006
 ```
-```
+
 # **4. Estrutura do Projeto**
+```
 |--Contole de estoque
    |--controle_estoque
       |--node_modules
