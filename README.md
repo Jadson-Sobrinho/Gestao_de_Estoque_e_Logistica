@@ -36,14 +36,67 @@ DB_PORT=3006
 ```
 
 # **4. Estrutura do Projeto**
-
+```
+|--Contole de estoque
+   |--controle_estoque
+      |--node_modules
+      |--src
+         |--api
+            |--routes
+               |--fornecedor
+                  |--atualizarFornecedor.js
+                  |--buscarFornecedor.js
+                  |--buscarTodosFornecedores.js
+                  |--criarFornecedor.js
+                  |--excluirFornecedor.js
+                  |--index.js
+               |--lote
+                  |--adicionarLote.js
+                  |--index.js
+               |--marca
+                  |--buscarProdutosMarca.js
+                  |--index.js
+               |--produto
+                  |--atualizarProduto.js
+                  |--buscarProduto.js
+                  |--buscarTodosProduto.js
+                  |--criarProduto.js
+                  |--excluirProduto.js
+                  |--index.js
+                  |--listarCategoriaProdutos.js
+            |--validators
+               |--fornecedorValidator.js
+               |--produtoValidator.js
+         |--config
+            |--connection.js
+         |--database
+            |--1.Schemas
+         	   |--Modelo lógico - Controle de estoque.pdf
+            |--2.Migrations
+         	   |--001.initial.sql
+         	   |--002.produto_triggers.sql
+         	   |--003.fornecedor_procedures.sql
+         	   |--004.produto_procedure.sql
+         	   |--005.views.sql
+               |--006.lote_procedure.sql
+            |--3.Seeds
+         	   |--seed.sql
+            |--README.txt
+         |--app.js
+      |--env.env
+      |--.gitignore.txt
+      |--package.json
+      |--package-lock.json
+      |--Design
+         |--icons
+         |Controle de estoque-MOBILE.fig
+   |--README.txt
+```
 * app.js: Arquivo de inicialização principal da aplicação. Aqui, o servidor é configurado e as rotas principais são registradas.
 * api: Contém os controladores e rotas da API para operações CRUD no estoque.
 * config: Contém as configurações de banco de dados
 * database: Define o esquema do banco de dados.
 
-# **5. Funcionamento das Funcionalidades**
-Cada módulo tem funções específicas:
-
-* API: Possui endpoints REST para permitir operações como criação, leitura, atualização e exclusão de itens.
-* Configuração de Banco de Dados: O projeto se conecta ao banco através de um arquivo de configuração localizado na pasta config, utilizando as credenciais do .env.
+# **5. Possíveis features**
+* Digitalização da Nota Fiscal (quando em papel) - Sistema de OCR para identificar elementos comuns em notas fiscais
+* Extração dos Dados (para notas eletrônicas XML)
