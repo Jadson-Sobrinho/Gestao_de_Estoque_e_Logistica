@@ -2,69 +2,80 @@ USE db_controle_estoque;
 
 DELIMITER $$
 
-/*Automatizar e simplificar o processo de inserção de dados relacionados
-a fornecedores, endereços e marcas fornecidas em uma unica operação*/
 CREATE PROCEDURE IF NOT EXISTS cadastrar_fornecedor (
 
-/*Parametros do fornecedor*/
-IN p_razao_social VARCHAR(50),
-IN p_CNPJ CHAR(14),
+    /* Parâmetros do fornecedor */
+    IN p_razao_social VARCHAR(50),
+    IN p_CNPJ CHAR(14),
 
-/*Parametros do endereco*/
-IN p_cep CHAR(8),
-IN p_uf CHAR(2),
-IN p_cidade VARCHAR(35),
-IN p_bairro VARCHAR(35),
+    /* Parâmetros do endereço */
+    IN p_cep CHAR(8),
+    IN p_uf CHAR(2),
+    IN p_cidade VARCHAR(35),
+    IN p_bairro VARCHAR(35),
 
-/*Parametros do numero de endereco do fornecedor*/
-IN p_numero VARCHAR(4),
+    /* Parâmetros do número de endereço do fornecedor */
+    IN p_numero VARCHAR(4),
 
-/*Parametros do telefone do fornecedor*/
-IN p_telefone CHAR(11),
+    /* Parâmetros do telefone do fornecedor */
+    IN p_telefone CHAR(11),
 
-/*Parametros do email do fornecedor*/
-IN p_email VARCHAR(50),
+    /* Parâmetros do email do fornecedor */
+    IN p_email VARCHAR(50),
 
-/*Parametros da marca do fornecedor*/
-IN p_nome_marca VARCHAR(45)
-
+    /* Parâmetros da marca do fornecedor */
+    IN p_nome_marca VARCHAR(45)
 )
 
-
 BEGIN
-START TRANSACTION;
+    DECLARE v_marca_id INT;
+    DECLARE v_fornecedor_id INT;
+    DECLARE v_endereco_id INT;
 
-	/*Inserir fornecedor*/
-	INSERT INTO tb_fornecedor (razao_social, CNPJ) 
-	VALUES (p_razao_social, p_CNPJ);
-	
-	/*Recuperar o id do ultimo fornecedor inserido*/
-	SET @fornecedor_id = LAST_INSERT_ID();
-	
-	/*Inserir endereco*/
-	INSERT INTO tb_endereco (cep, uf, cidade, bairro) 
-	VALUES (p_cep, p_uf, p_cidade, p_bairro);
-	
-	/*Recuperar o id do ultimo id do endereco inserido*/
-	SET @endereco_id = LAST_INSERT_ID();
-	
-	INSERT INTO tb_endereco_fornecedor (endereco_id, fornecedor_id, numero) 
-	VALUES (@endereco_id, @fornecedor_id, p_numero);
-	
-	INSERT INTO tb_telefone_fornecedor (fornecedor_id, telefone) 
-	VALUES (@fornecedor_id, p_telefone);
-	
-	INSERT INTO tb_email_fornecedor (fornecedor_id, email) 
-	VALUES (@fornecedor_id, p_email);
-	
-	INSERT INTO tb_marca (fornecedor_id, nome_marca)
-	VALUES (@fornecedor_id, p_nome_marca);
-	
-COMMIT;
+    START TRANSACTION;
+
+    /* Verificar se a marca já existe */
+    SELECT marca_id INTO v_marca_id FROM tb_marca WHERE nome_marca = p_nome_marca;
+
+    IF v_marca_id IS NULL THEN
+        /* Inserir marca caso não exista */
+        INSERT INTO tb_marca (nome_marca)
+        VALUES (p_nome_marca);
+        SET v_marca_id = LAST_INSERT_ID();
+    END IF;
+
+    /* Inserir fornecedor */
+    INSERT INTO tb_fornecedor (razao_social, CNPJ, marca_id) 
+    VALUES (p_razao_social, p_CNPJ, v_marca_id);
+    
+    /* Recuperar o id do último fornecedor inserido */
+    SET v_fornecedor_id = LAST_INSERT_ID();
+    
+    /* Inserir endereço */
+    INSERT INTO tb_endereco (cep, uf, cidade, bairro) 
+    VALUES (p_cep, p_uf, p_cidade, p_bairro);
+    
+    /* Recuperar o id do último endereço inserido */
+    SET v_endereco_id = LAST_INSERT_ID();
+    
+    /* Inserir relação entre fornecedor e endereço */
+    INSERT INTO tb_endereco_fornecedor (endereco_id, fornecedor_id, numero) 
+    VALUES (v_endereco_id, v_fornecedor_id, p_numero);
+    
+    /* Inserir telefone do fornecedor */
+    INSERT INTO tb_telefone_fornecedor (fornecedor_id, telefone) 
+    VALUES (v_fornecedor_id, p_telefone);
+    
+    /* Inserir email do fornecedor */
+    INSERT INTO tb_email_fornecedor (fornecedor_id, email) 
+    VALUES (v_fornecedor_id, p_email);
+    
+    COMMIT;
 
 END$$
 
 DELIMITER ;
+
 
 
 
@@ -98,8 +109,10 @@ IN p_nome_marca VARCHAR(45)
 BEGIN
 
 DECLARE v_fornecedor_id INT;
+DECLARE v_marca_id INT;
 
 SELECT fornecedor_id INTO v_fornecedor_id FROM tb_fornecedor WHERE CNPJ = p_CNPJ;
+SELECT marca_id INTO v_marca_id FROM tb_marca WHERE marca_id = p_nome_marca;
 
 START TRANSACTION;
 
@@ -131,9 +144,10 @@ WHERE fornecedor_id = v_fornecedor_id;
 /*Atualizar atributos da tabela tb_marca*/
 UPDATE tb_marca
 SET nome_marca = p_nome_marca
-WHERE fornecedor_id = v_fornecedor_id;
+WHERE marca_id = v_marca_id;
 
 COMMIT;
+ROLLBACK;
 END$$
 
 DELIMITER ;

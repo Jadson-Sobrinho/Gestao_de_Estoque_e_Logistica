@@ -9,6 +9,7 @@ Controle de estoque:
 	|--003.fornecedor_procedures.sql
 	|--004.produto_procedure.sql
 	|--005.views.sql
+	|--006.lote_procedure.sql
 |--3.Seeds
 	|--seed.sql
 README.txt

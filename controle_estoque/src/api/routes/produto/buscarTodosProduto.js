@@ -6,7 +6,8 @@ module.exports = async function (req, res) {
     try{
         conn = await pool.getConnection();
         const result = await conn.query("SELECT * FROM vw_produto_info;");
-        res.json(result);
+        res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify(result, null, 2));
     }catch (erro){
         res.status(500).send("Erro ao acessar o banco " + erro.message);
     }finally {

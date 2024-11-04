@@ -11,6 +11,7 @@ app.use('/produto', rotaProduto);
 let rotaMarca = require('./api/routes/marca/index');
 app.use('/marca', rotaMarca);
 
-
+let rotaLote = require('./api/routes/lote/index');
+app.use('/lote', rotaLote);
 
 app.listen(3001);

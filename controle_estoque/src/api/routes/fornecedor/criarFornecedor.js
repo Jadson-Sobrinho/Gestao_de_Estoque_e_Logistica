@@ -46,7 +46,7 @@ try{
 
     );
 
-    res.status(201).json({message: 'Fornecedor criado com sucesso'});
+    res.status(201).send(JSON.stringify({message: 'Fornecedor criado com sucesso'}));
 }catch (erro){
     res.status(500).send("Erro ao criar o fornecedor " + erro.message);
     

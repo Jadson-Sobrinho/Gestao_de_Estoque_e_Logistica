@@ -8,7 +8,6 @@ module.exports = async function(req, res){
     if(validator(cnpj)){
         return res.status(400).json({Erro: 'Insira um dado valido'});
     }
-    
     let conn;
     try{
         const obj = {
@@ -21,13 +20,20 @@ module.exports = async function(req, res){
         );
 
         conn = await pool.getConnection();
-
-        const result = await conn.query("DELETE FROM tb_fornecedor WHERE CNPJ = ?", [cnpj]);
-        res.json({
-            message: "Fornecedor deletado com sucesso",
-            affectedRows: result.affectedRows
+        const verifica_Se_CNPJ_exite = conn.query("SELECT CNPJ FROM tb_fornecedor WHERE CNPJ = ?", [cnpj])
         
-        });
+        if(verifica_Se_CNPJ_exite === null){
+            return res.send(JSON.stringify({message: "CNPJ não encontrado"}))
+        }
+        else{
+            const result = await conn.query("DELETE FROM tb_fornecedor WHERE CNPJ = ?", [cnpj]);
+            res.send(JSON.stringify({
+                message: "Fornecedor deletado com sucesso",
+                affectedRows: result.affectedRows
+            
+            }));
+        }
+
 
     }catch (erro){
         res.status(500).send("Erro ao acessar o banco " + erro.message);

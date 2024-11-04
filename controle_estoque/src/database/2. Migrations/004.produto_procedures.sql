@@ -19,7 +19,7 @@ IN p_codigo_barra CHAR(13)
 BEGIN
 START TRANSACTION;
 	
-	 IF p_nome_categoria NOT IN ('FRIOS', 'CARNES', 'LIMPEZA', 'HIGIENE E BELEZA', 'LATICÍCIOS', 'OUTROS') THEN
+	 IF p_nome_categoria NOT IN ('FRIOS', 'CARNES', 'LIMPEZA', 'HIGIENE E BELEZA', 'LATICÍCIOS', 'BEBIDAS' 'OUTROS') THEN
 	 	SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Tipo de categoria não cadastrada';
 	 END IF;
 	 
@@ -77,6 +77,7 @@ descricao = p_descricao
 WHERE produto_id = p_produto_id;
 
 COMMIT;
+ROLLBACK;
 ELSE
 	SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Marca ou categoria não encontrada';
 END IF;

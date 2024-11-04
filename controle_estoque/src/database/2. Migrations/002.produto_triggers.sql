@@ -120,25 +120,59 @@ CREATE TRIGGER IF NOT EXISTS after_update_estoque
 AFTER UPDATE ON tb_estoque
 FOR EACH ROW
 BEGIN
-    DECLARE produto_id INT;
+    DECLARE v_produto_id INT;
 
     -- Obtém o produto_id associado ao lote
-    SELECT produto_id INTO produto_id
+    SELECT produto_id INTO v_produto_id
     FROM tb_lote
     WHERE lote_id = NEW.lote_id;
 
-    -- Verifica se a quantidade está próxima do limite mínimo
-    IF NEW.quantidade <= 30 THEN
-        INSERT INTO tb_estoque_log (produto_id, quantidade, tipo_alerta)
-        VALUES (produto_id, NEW.quantidade, 'Limite Mínimo');	
-    
-    -- Verifica se a quantidade está próxima do limite máximo
-    ELSEIF NEW.quantidade >= 300 THEN
-        INSERT INTO tb_estoque_log (produto_id, quantidade, tipo_alerta)
-        VALUES (produto_id, NEW.quantidade, 'Limite Máximo');
+    -- Verifica se o produto_id foi encontrado
+    IF v_produto_id IS NOT NULL THEN
+        -- Verifica se a quantidade está próxima do limite mínimo
+        IF NEW.quantidade <= 30 THEN
+            INSERT INTO tb_estoque_log (produto_id, quantidade, tipo_alerta)
+            VALUES (v_produto_id, NEW.quantidade, 'Limite Mínimo');    
+
+        -- Verifica se a quantidade está próxima do limite máximo
+        ELSEIF NEW.quantidade >= 300 THEN
+            INSERT INTO tb_estoque_log (produto_id, quantidade, tipo_alerta)
+            VALUES (v_produto_id, NEW.quantidade, 'Limite Máximo');
+        END IF;
     END IF;
 END$$
 
 DELIMITER ;
 
 
+
+DELIMITER $$
+
+CREATE TRIGGER IF NOT EXISTS after_insert_lote
+AFTER INSERT ON tb_lote
+FOR EACH ROW
+BEGIN
+    -- Insere o novo lote no estoque com a quantidade inicial igual à do lote
+    INSERT INTO tb_estoque (lote_id, quantidade)
+    VALUES (NEW.lote_id, NEW.quantidade);  -- Define a quantidade inicial conforme a quantidade do lote
+END$$
+
+DELIMITER ;
+
+
+
+DELIMITER $$
+
+CREATE TRIGGER IF NOT EXISTS after_update_produto
+AFTER UPDATE ON tb_produto
+FOR EACH ROW
+BEGIN
+	
+	INSERT INTO tb_produto_log (produto_id, preco_custo, preco_venda)
+	VALUES (NEW.produto_id, NEW.preco_custo, NEW.preco_venda);
+	
+	
+END$$
+
+
+DELIMITER ;

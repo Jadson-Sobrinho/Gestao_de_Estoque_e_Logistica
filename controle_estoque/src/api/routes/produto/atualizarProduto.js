@@ -13,7 +13,6 @@ module.exports = async function(req, res){
         nome_categoria: req.body.nome_categoria,
         preco_custo: req.body.preco_custo,
         preco_venda: req.body.preco_venda,
-        quantidade: req.body.quantidade,
         codigo_barra: req.body.codigo_barra
         
 
@@ -27,7 +26,7 @@ module.exports = async function(req, res){
     try{
         conn = await pool.getConnection();
 
-        const result = await conn.query('CALL Update_produto_info(?, ?, ?, ?, ?, ?, ?, ?, ?);',
+        const result = await conn.query('CALL Update_produto_info(?, ?, ?, ?, ?, ?, ?, ?);',
             [
                 atualizar_produto.produto_id,
                 atualizar_produto.nome_produto,
@@ -36,7 +35,6 @@ module.exports = async function(req, res){
                 atualizar_produto.nome_categoria,
                 atualizar_produto.preco_custo,
                 atualizar_produto.preco_venda,
-                atualizar_produto.quantidade,
                 atualizar_produto.codigo_barra
                 
             ]
