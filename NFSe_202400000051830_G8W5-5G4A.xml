@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CompNfse xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.abrasf.org.br/nfse.xsd">
+  <Nfse versao="2.02">
+    <InfNfse Id="NFSe202400000051830">
+      <Numero>202400000051830</Numero>
+      <CodigoVerificacao>G8W5-5G4A</CodigoVerificacao>
+      <DataEmissao>2024-11-05T17:19:29.94</DataEmissao>
+      <OutrasInformacoes>Trib. aprox. R$ 83,41 Federal e R$ 31,01 Municipal. Fonte: IBPT [96A549]\s\n</OutrasInformacoes>
+      <ValoresNfse>
+        <BaseCalculo>620.17</BaseCalculo>
+        <Aliquota>5</Aliquota>
+        <ValorIss>31.01</ValorIss>
+        <ValorLiquidoNfse>620.17</ValorLiquidoNfse>
+      </ValoresNfse>
+      <PrestadorServico>
+        <IdentificacaoPrestador>
+          <CpfCnpj>
+            <Cnpj>04670333000421</Cnpj>
+          </CpfCnpj>
+          <InscricaoMunicipal>384844</InscricaoMunicipal>
+        </IdentificacaoPrestador>
+        <RazaoSocial>INSTITUTO MANTENEDOR DE ENSINO SUPERIOR DA BAHIA LTDA</RazaoSocial>
+        <NomeFantasia>UNEX</NomeFantasia>
+        <Endereco>
+          <Endereco>AVENIDA ARTÊMIA PIRES</Endereco>
+          <Numero>SN</Numero>
+          <Bairro>Sim</Bairro>
+          <CodigoMunicipio>2910800</CodigoMunicipio>
+          <Uf>BA</Uf>
+          <Cep>44085370</Cep>
+        </Endereco>
+        <Contato>
+          <Telefone>7132818000</Telefone>
+          <Email>fiscal@ftc.br</Email>
+        </Contato>
+      </PrestadorServico>
+      <OrgaoGerador>
+        <CodigoMunicipio>2910800</CodigoMunicipio>
+        <Uf>BA</Uf>
+      </OrgaoGerador>
+      <DeclaracaoPrestacaoServico>
+        <InfDeclaracaoPrestacaoServico>
+          <Rps Id="RpsA02212874">
+            <IdentificacaoRps>
+              <Numero>212874</Numero>
+              <Serie>A02</Serie>
+              <Tipo>1</Tipo>
+            </IdentificacaoRps>
+            <DataEmissao>2024-10-31</DataEmissao>
+            <Status>1</Status>
+          </Rps>
+          <Competencia>2024-10-01</Competencia>
+          <Servico>
+            <Valores>
+              <ValorServicos>620.17</ValorServicos>
+            </Valores>
+            <IssRetido>2</IssRetido>
+            <ItemListaServico>0801</ItemListaServico>
+            <CodigoCnae>8531700</CodigoCnae>
+            <CodigoTributacaoMunicipio>0801</CodigoTributacaoMunicipio>
+            <Discriminacao>PRESTACAO DE SERVICOS EDUCACIONAIS ENSINO REGULAR PRE-ESCOLAR,FUNDAMENTAL,MEDIO E SUPERIOR</Discriminacao>
+            <CodigoMunicipio>2910800</CodigoMunicipio>
+            <ExigibilidadeISS>1</ExigibilidadeISS>
+            <MunicipioIncidencia>2910800</MunicipioIncidencia>
+          </Servico>
+          <Prestador>
+            <CpfCnpj>
+              <Cnpj>04670333000421</Cnpj>
+            </CpfCnpj>
+            <InscricaoMunicipal>384844</InscricaoMunicipal>
+          </Prestador>
+          <Tomador>
+            <IdentificacaoTomador>
+              <CpfCnpj>
+                <Cpf>07835893525</Cpf>
+              </CpfCnpj>
+            </IdentificacaoTomador>
+            <RazaoSocial>JADSON DA SILVA SOBRINHO</RazaoSocial>
+            <Endereco>
+              <Endereco>GERAL 36 3 RUAS DAS POPULARES</Endereco>
+              <Numero>SN</Numero>
+              <Bairro>RETIRO VELHO</Bairro>
+              <CodigoMunicipio>2926103</CodigoMunicipio>
+              <Uf>BA</Uf>
+              <CodigoPais>1058</CodigoPais>
+              <Cep>48750000</Cep>
+            </Endereco>
+            <Contato>
+              <Telefone>00</Telefone>
+              <Email>jadson.s.sobrinho@gmail.com</Email>
+            </Contato>
+          </Tomador>
+          <OptanteSimplesNacional>2</OptanteSimplesNacional>
+          <IncentivoFiscal>2</IncentivoFiscal>
+        </InfDeclaracaoPrestacaoServico>
+      </DeclaracaoPrestacaoServico>
+    </InfNfse>
+  <Signature xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" /><Reference URI="#NFSe202400000051830"><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" /><DigestValue>+VQGMgp5H2P3N+wt2g7R/Woz4Kk=</DigestValue></Reference></SignedInfo><SignatureValue>U1hvaAhLprPTZss0hODC+sH0PEGYeTuVJeryKogUz+eoZieFP1/daFwOlBUfMJBmq/rzpJCMG22HPW8WS4qn5X9br8UrX4HeBoo96bkSuBn3QdsY2tlY2Iy3cM6jdQZjZjnF37UYSt9X+nAPqU5O8GlmdLDbra6TMdmvJFncILLFdKSxIx5Uxj8o4ubuaM3ooqYfr1Yz/pAjPQ71cqng+odYwkj9U+vGoYKL+e0oiWktvgX1e6GyJhR4xEOu+lDAYmwVPLqH+qZNjCl9wts85AFaU53v291xaCiXShkiR2uq0IORgE9K0ZfnzNljqymBvKXU6byBfVqjniLpRJzx/w==</SignatureValue><KeyInfo><X509Data><X509Certificate>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</X509Certificate></X509Data></KeyInfo></Signature></Nfse>
+</CompNfse>
