@@ -14,7 +14,7 @@ app.use('/marca', rotaMarca);
 let rotaLote = require('./api/routes/lote/index');
 app.use('/lote', rotaLote);
 
-let rotaNfse = require('./api/routes/NFS-e/ler_xml');
+let rotaNfse = require('./api/routes/NFS-e/index');
 app.use('/NFS-e', rotaNfse)
 
 app.listen(3001);

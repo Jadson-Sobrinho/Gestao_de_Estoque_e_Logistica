@@ -1,8 +1,8 @@
 var express = require('express');
 var Router = express.Router();
 
-let LerXml = require('./ler_xml');
+let LerXml = require('../NFS-e/ler_xml');
 
-Router.get('/ler_xml', LerXml);
+Router.get('/ler-xml', LerXml);
 
 module.exports = Router;
