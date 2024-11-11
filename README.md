@@ -10,6 +10,9 @@ Para executar este projeto, você precisará de:
 * Express (versão recomendada 4.21.1)
 * Joi (versão recomendada 17.13.3)
 * Banco de Dados (MariaDB)
+* JWT
+* BackCrypt
+* Dotenv
 
 # **3. Configuração e Instalação:**
    
