@@ -137,8 +137,6 @@ DB_PORT=3000
 **NFS-e**
 * http://localhost:3001/NFS-e/ler-xml
 * http://localhost:3001/NFS-e/Set-xml
-=======
-   |--README.txt
 
 **Produto**
 * http://localhost:3001/produto/create
