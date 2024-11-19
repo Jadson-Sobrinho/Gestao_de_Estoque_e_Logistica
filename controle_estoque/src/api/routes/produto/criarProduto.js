@@ -9,7 +9,6 @@ module.exports = async function(req, res){
         nome_categoria: req.body.nome_categoria,
         preco_custo: req.body.preco_custo,
         preco_venda: req.body.preco_venda,
-        quantidade: req.body.quantidade,
         codigo_barra: req.body.codigo_barra
         
 
@@ -23,7 +22,7 @@ module.exports = async function(req, res){
     try{
         conn = await pool.getConnection();
 
-        const result = await conn.query("CALL cadastrar_produto(?, ?, ?, ?, ?, ?, ?, ?)",
+        const result = await conn.query("CALL cadastrar_produto(?, ?, ?, ?, ?, ?, ?)",
             [
                 novo_produto.nome_produto,
                 novo_produto.descricao,
@@ -31,7 +30,6 @@ module.exports = async function(req, res){
                 novo_produto.nome_categoria,
                 novo_produto.preco_custo,
                 novo_produto.preco_venda,
-                novo_produto.quantidade,
                 novo_produto.codigo_barra,
             ]
         );

@@ -11,7 +11,6 @@ IN p_nome_marca VARCHAR(45),
 IN p_nome_categoria VARCHAR(20),
 IN p_preco_custo DECIMAL(10,2),
 IN p_preco_venda DECIMAL(10,2),
-IN p_quantidade INT,
 IN p_codigo_barra CHAR(13)
 
 )
@@ -20,7 +19,7 @@ IN p_codigo_barra CHAR(13)
 BEGIN
 START TRANSACTION;
 	
-	 IF p_nome_categoria NOT IN ('FRIOS', 'CARNES', 'LIMPEZA', 'HIGIENE E BELEZA', 'LATICÍCIOS', 'OUTROS') THEN
+	 IF p_nome_categoria NOT IN ('FRIOS', 'CARNES', 'LIMPEZA', 'HIGIENE E BELEZA', 'LATICÍCIOS', 'BEBIDAS' 'OUTROS') THEN
 	 	SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Tipo de categoria não cadastrada';
 	 END IF;
 	 
@@ -28,10 +27,10 @@ START TRANSACTION;
 	 	SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Marca não cadastrada.';
 	 END IF;
 
-    INSERT INTO tb_produto (marca_id, categoria_id, nome_produto, preco_custo, preco_venda, quantidade, codigo_barra, descricao)
+    INSERT INTO tb_produto (marca_id, categoria_id, nome_produto, preco_custo, preco_venda, codigo_barra, descricao)
     VALUES (
 	 	(SELECT marca_id FROM tb_marca WHERE nome_marca = p_nome_marca),
-		(SELECT categoria_id FROM tb_categoria WHERE nome_categoria = p_nome_categoria), p_nome_produto, p_preco_custo, p_preco_venda, p_quantidade, p_codigo_barra, p_descricao);
+		(SELECT categoria_id FROM tb_categoria WHERE nome_categoria = p_nome_categoria), p_nome_produto, p_preco_custo, p_preco_venda, p_codigo_barra, p_descricao);
     
 COMMIT;
 END$$
@@ -50,7 +49,6 @@ IN p_nome_marca VARCHAR(45),
 IN p_nome_categoria VARCHAR(20),
 IN p_preco_custo DECIMAL(10,2),
 IN p_preco_venda DECIMAL(10,2),
-IN p_quantidade INT,
 IN p_codigo_barra CHAR(13)
 
 
@@ -74,12 +72,12 @@ marca_id = v_marca_id,
 categoria_id = v_categoria_id,
 preco_custo = p_preco_custo,
 preco_venda = p_preco_venda,
-quantidade = p_quantidade,
 codigo_barra = p_codigo_barra,
 descricao = p_descricao
 WHERE produto_id = p_produto_id;
 
 COMMIT;
+ROLLBACK;
 ELSE
 	SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Marca ou categoria não encontrada';
 END IF;

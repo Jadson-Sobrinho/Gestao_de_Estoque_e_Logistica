@@ -9,6 +9,7 @@ Controle de estoque:
 	|--003.fornecedor_procedures.sql
 	|--004.produto_procedure.sql
 	|--005.views.sql
+	|--006.lote_procedure.sql
 |--3.Seeds
 	|--seed.sql
 README.txt
@@ -17,29 +18,16 @@ README.txt
 
 OBS: 
 
-TODO: Adicionar um trigger para que a quantidade inserida não seja negativa
+TODO: Adicionar um trigger para caso um produto esteja perto do seu prazo de validade enviar um aviso
 
-TODO: Adicionar trigger para quando atualizar o preços de custo e venda, a venda não seja menor que o custo
-
-TODO: Adicionar um atributo de data de recebimento da compra e prazo de validade
+TODO: BACKUP automático
 
 
 /--Possíveis melhorias
 
-TODO: Registro de vendas
-
-TODO: Registrar saída de produto
+TODO: Criar Registro de vendas
 
 TODO: Adicionar trigger para cancelamento de compra e retorna o valor
 
-TODO: Adicionar um trigger para caso um produto esteja perto do seu prazo de validade enviar um aviso
-
-TODO: Criar tabela para quantidade de estoque mínimo e máximo
-
-TODO: Adicionar trigger para caso o estoque esteja perto do limite min e max
-
-TODO: Registro de movimentações de alterações no estoque
-
 TODO: Criar login de usuários
 
-TODO: BACKUP automático

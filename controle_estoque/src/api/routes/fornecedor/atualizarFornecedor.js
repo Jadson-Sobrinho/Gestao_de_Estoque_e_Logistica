@@ -52,11 +52,7 @@ module.exports = async function(req, res){
 
         );
 
-        res.json({
-            message: "Fornecedor atualizado com sucesso",
-            affectedRows: result.affectedRows
-        
-        });
+        res.send(JSON.stringify({message: "Fornecedor atualizado com sucesso"}));
     }catch(erro){
         res.status(500).send("Erro ao acessar o banco" + erro.message);
 
