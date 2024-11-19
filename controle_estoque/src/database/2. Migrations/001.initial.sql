@@ -202,4 +202,17 @@ FOREIGN KEY (produto_id) REFERENCES tb_produto (produto_id)
 
 );
 
+CREATE TABLE IF NOT EXISTS tb_usuario(
+usuario_id INT AUTO_INCREMENT,
+login VARCHAR(50) NOT NULL UNIQUE,
+senha CHAR(64) NOT NULL,
+created_at DATETIME DEFAULT CURRENT_TIMESTAMP(),
+updated_at DATETIME
+	ON UPDATE CURRENT_TIMESTAMP(),
+
+PRIMARY KEY (usuario_id)
+
+
+);
+
 
