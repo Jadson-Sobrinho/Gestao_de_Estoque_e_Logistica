@@ -14,7 +14,6 @@ Para executar este projeto, você precisará de:
 * dotenv (versão recomendada 16.4.5)
 * JWT (versão recomendada 9.0.2)
 
-
 # **3. Configuração e Instalação:**
    
 ### **Passo 1: Clonar o repositório**
@@ -65,6 +64,9 @@ DB_PORT=3000
                |--ler_xml.js
                |--SetXml.js
                |-index.js
+               |--marca
+                  |--buscarProdutosMarca.js
+                  |--index.js
                |--produto
                   |--atualizarProduto.js
                   |--buscarProduto.js
@@ -135,6 +137,8 @@ DB_PORT=3000
 **NFS-e**
 * http://localhost:3001/NFS-e/ler-xml
 * http://localhost:3001/NFS-e/Set-xml
+=======
+   |--README.txt
 
 **Produto**
 * http://localhost:3001/produto/create
