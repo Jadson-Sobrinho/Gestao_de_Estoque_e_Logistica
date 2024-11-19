@@ -2,11 +2,12 @@ var fs = require('fs');
 var xml2js = require('xml2js');
 const parser = new xml2js.Parser();
 require('dotenv').config();
+const {upload} = require('../NFS-e/SetXml');
 
 
 
 module.exports = async function (req, res) {
-    const caminho = process.env.NfseCaminho;
+    const caminho = global.uploadFile;
 
     // Ler o arquivo XML
     fs.readFile(caminho, 'utf-8', (err, data) => {

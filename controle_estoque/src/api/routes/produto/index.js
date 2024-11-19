@@ -12,7 +12,7 @@ Router.post('/create', criarProduto);
 Router.get('/search', buscarProduto);
 Router.patch('/update', atualizarProduto);
 Router.delete('/delete', excluirProduto);
-Router.get('/search/listar_produtos', buscarTodosProduto);
+Router.get('/listar_produtos', buscarTodosProduto);
 Router.get('/listar_categoria_produtos', listarCategoriaProdutos);
 
 module.exports = Router;

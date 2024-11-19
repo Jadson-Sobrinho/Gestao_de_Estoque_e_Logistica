@@ -2,8 +2,11 @@ var express = require('express');
 var app = express();
 app.use(express.json());
 
+let rotaUsuario = require('./api/routes/user/index');
+app.use('/usuario', rotaUsuario);
+
 let rotaFornecedor = require('./api/routes/fornecedor/index');
-app.use('/user', rotaFornecedor);
+app.use('/fornecedor', rotaFornecedor);
 
 let rotaProduto = require('./api/routes/produto/index');
 app.use('/produto', rotaProduto);
