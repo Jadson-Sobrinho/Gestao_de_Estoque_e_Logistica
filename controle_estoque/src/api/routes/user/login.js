@@ -28,13 +28,10 @@ try{
     if(match) {
         // Cria o token com o user_info e o hash da senha
         const token = jwt.sign({...user_info, senha: result[0].senha}, process.env.JWT_SECRET, { expiresIn: '8h' });
-        res.json({ token });
-
-        res.setHeader('Content-Type', 'application/json');
         res.send(JSON.stringify({message: "Usuario logado com sucesso"}));
         
     } else {
-        res.setHeader('Content-Type', 'application/json');
+
         res.send(JSON.stringify({message: "Senha Incorreta"})); 
     }
 

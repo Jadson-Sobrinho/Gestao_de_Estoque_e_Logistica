@@ -24,17 +24,15 @@ try{
     }
 
     const match = await bcryptjs.compare(user_info.senha, result[0].senha);
-
     if(match) {
-       
-        res.setHeader('Content-Type', 'application/json');
-        res.send(JSON.stringify({message: "Usuario logado com sucesso"}));
+        // Cria o token com o user_info e o hash da senha
+        const token = jwt.sign({...user_info, senha: result[0].senha}, process.env.JWT_SECRET, { expiresIn: '8h' });
+        res.send(JSON.stringify({token: token}));
         
     } else {
-        res.setHeader('Content-Type', 'application/json');
+
         res.send(JSON.stringify({message: "Senha Incorreta"})); 
     }
-
 
 }catch(erro){
     res.status(500).send({message: "Erro ao tentar se conectar ao banco" + erro})

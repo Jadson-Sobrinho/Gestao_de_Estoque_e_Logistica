@@ -1,9 +1,7 @@
 const pool = require('../../../config/connection');
 
-
 module.exports = async function (req, res) {
-    
-    
+
     const validator = (value) => value === undefined || value === null || value === '';
 
     

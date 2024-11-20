@@ -66,23 +66,28 @@ ORDER BY P.nome_produto ASC;
 
 /*Listar todos os produtos de uma marca específica*/
 CREATE VIEW IF NOT EXISTS vw_marca_quantidade_produtos AS SELECT
-M.nome_marca,
-P.nome_produto,
-E.quantidade,
-P.codigo_barra
+	M.nome_marca,
+	P.nome_produto,
+	SUM(E.quantidade) AS quantidade_total,
+	P.codigo_barra
 
 FROM tb_marca AS M
 
-INNER JOIN tb_produto AS P
-ON P.marca_id = M.marca_id
+RIGHT JOIN tb_produto AS P
+	ON P.marca_id = M.marca_id
 
-INNER JOIN tb_lote AS L
-ON L.produto_id = P.produto_id
+LEFT JOIN tb_lote AS L
+	ON L.produto_id = P.produto_id
 
-INNER JOIN tb_estoque AS E
-ON E.lote_id = L.produto_id;
+LEFT JOIN tb_estoque AS E
+	ON E.lote_id = L.lote_id
 
-/*WHERE M.nome_marca = 'Marca Y';*/
+/*WHERE M.nome_marca = 'Marca X'*/
+
+GROUP BY
+    M.nome_marca,
+    P.nome_produto,
+    P.codigo_barra;
 
 
 
