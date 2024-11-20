@@ -19,12 +19,14 @@ IN p_codigo_barra CHAR(13)
 BEGIN
 START TRANSACTION;
 	
-	 IF p_nome_categoria NOT IN ('FRIOS', 'CARNES', 'LIMPEZA', 'HIGIENE E BELEZA', 'LATICÍCIOS', 'BEBIDAS' 'OUTROS') THEN
+	 IF p_nome_categoria NOT IN ('FRIOS', 'CARNES', 'LIMPEZA', 'HIGIENE E BELEZA', 'LATICÍCIOS', 'BEBIDAS', 'OUTROS') THEN
 	 	SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Tipo de categoria não cadastrada';
+	 	ROLLBACK;
 	 END IF;
 	 
 	 IF p_nome_marca NOT IN (SELECT nome_marca FROM tb_marca WHERE nome_marca = p_nome_marca) THEN
 	 	SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Marca não cadastrada.';
+	 	ROLLBACK;
 	 END IF;
 
     INSERT INTO tb_produto (marca_id, categoria_id, nome_produto, preco_custo, preco_venda, codigo_barra, descricao)

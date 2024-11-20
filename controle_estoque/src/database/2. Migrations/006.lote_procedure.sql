@@ -27,10 +27,12 @@ BEGIN
     -- Verificar se o produto e a marca existem
     IF v_produto_id IS NULL THEN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Produto não encontrado.';
+        ROLLBACK;
     END IF;
 
     IF v_marca_id IS NULL THEN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Marca não encontrada.';
+        ROLLBACK;
     END IF;
 
     -- Inserir o novo lote
