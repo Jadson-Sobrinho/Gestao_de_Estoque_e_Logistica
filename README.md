@@ -119,7 +119,15 @@ DB_PORT=3000
 * app.js: Arquivo de inicialização principal da aplicação. Aqui, o servidor é configurado e as rotas principais são registradas;
 * Design: Contém o protótipo do design do aplicativo de controle de estoque.
 
-# **5. Rotas**
+# **5. Documentação Swagger**
+Execute o arquivo app.js no terminal e acesse o link pelo navegador
+```bash
+node ./src/app.js
+```
+```bash
+http://localhost:3001/api-docs/
+```
+# **6. Rotas**
 
 **Fornecedor**
 * http://localhost:3001/fornecedor/create
